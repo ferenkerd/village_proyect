@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">  
+    <title>Reporte de clientes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            color: #1f2937;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .th_title {
+            background-color: #4338ca;
+            color: #fff;
+            font-weight: bold;
+            border: 1px solid #4f46e5;
+        }
+
+        td {
+            border-bottom: 1px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+
+    
+    <img src="./static/logo_1.png" width="90" height="" alt="Float UI logo" class="nav-logo"/>
+    
+    <h2 style="margin-top: 0; margin-left: 13px; padding: 0;" >Village Proyect</h2>
+
+    {% if service == 'arquitectura' %}
+         <h1 class="title">Reporte de Ordenes de Arquitectura</h1>    
+    {% endif %}
+
+    {% if service == 'impresion' %}
+        <h1 class="title">Reporte de Ordenes de Impresión</h1>    
+    {% endif %}
+
+    <h3>Usuario: {{user}}</h3>
+    <h3>Fecha: {{fecha}}</h3>
+
+    <table>
+        <thead>
+            <tr>
+                {% if service == 'arquitectura' %}
+                    <th class="th_title">Cliente</th>
+                    <th class="th_title">Fecha</th>
+                    <th class="th_title">Diseño</th>
+                    <th class="th_title">Propuesta Arquitectonica</th>
+                    <th class="th_title">Otros</th>
+                    <th class="th_title">Estatus</th>                
+                {% endif %}
+
+                {% if service == 'impresion' %}
+                    <th class="th_title">Cliente</th>
+                    <th class="th_title">Fecha</th>
+                    <th class="th_title">Cantidad</th>
+                    <th class="th_title">Formato</th>
+                    <th class="th_title">Tipo De Papel</th>
+                    <th class="th_title">Color</th>
+                    <th class="th_title">Otros</th>
+                    <th class="th_title">Estatus</th>                
+                {% endif %}
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for cliente in clientes %}
+                <tr>
+                    {% if service == 'arquitectura' %}
+                        <td>{{ cliente.user.username }}</td>
+                        <td>{{ cliente.creation_date }}</td>
+                        <td>{{ cliente.desing }}</td>
+                        <td>{{ cliente.architectural_proposal }}</td>
+                        {% if cliente.others == "" %}
+                            <td>Sin otros</td>
+                        {% else %}
+                            <td>{{ cliente.others }}</td>
+                        {% endif %}
+                        <td>{{ cliente.status }}</td>                    
+                    {% endif %}
+
+                    {% if service == 'impresion' %}
+                    	<td>{{ cliente.user.username }}</td>
+                        <td>{{ cliente.creation_date }}</td>
+                        <td>{{ cliente.amount }}</td>
+                        <td>{{ cliente.formats }}</td>
+                        <td>{{ cliente.type_of_paper }}</td>
+                        <td>{{ cliente.color }}</td>
+                        {% if cliente.others == "" %}
+                        <td>Sin otros</td>
+                        {% else %}
+                            <td>{{ cliente.others }}</td>
+                        {% endif %}
+                         <td>{{ cliente.status }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
