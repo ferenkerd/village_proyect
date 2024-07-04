@@ -1,1 +1,1 @@
-web = python manage.py collectstatic && gunicorn order.wsgi
+web: python manage.py collectstatic && gunicorn order.wsgi
